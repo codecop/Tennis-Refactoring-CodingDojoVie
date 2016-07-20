@@ -1,4 +1,5 @@
 class TennisGame2
+
   def initialize(player1Name, player2Name)
     @player1Name = player1Name
     @player2Name = player2Name
@@ -23,13 +24,14 @@ class TennisGame2
     #   and then mapping these states to the natural language
     #   output.
     #
-    # Love/Fiveteen/.../Fourty is inner level of mapping.
+    # Love/Fifteen/.../Forty is inner level of mapping.
     #   for the scores the "inner loop"
     # The outer states are All, Advantage, Win, etc. determined
     #   by difference/comparing.
     #
-    names1 = [ "Love", "Fifteen", "Thirty", "Forty", "" ]
-    names2 = [ "Love", "Fifteen", "Thirty", "Forty", "" ]
+    names1 = [ "Love", "Fifteen", "Thirty", "Forty", "Advantage #{@player1Name}" ]
+    names2 = [ "Love", "Fifteen", "Thirty", "Forty", "Advantage #{@player2Name}" ]
+      
     result = ""
     # equal and low score
     if (@p1points == @p2points and @p1points < 3)
@@ -38,7 +40,7 @@ class TennisGame2
     end
     # equal and high score
     if (@p1points==@p2points and @p1points>2)
-        result = "Deuce"
+      result = "Deuce"
     end
 
     p1res = ""
@@ -70,10 +72,10 @@ class TennisGame2
 
     # one is leading with hi score
     if (@p1points > @p2points and @p2points >= 3)
-      result = "Advantage " + @player1Name
+      result = names1[[@p1points, 4].min]
     end
     if (@p2points > @p1points and @p1points >= 3)
-      result = "Advantage " + @player2Name
+      result = names2[[@p2points, 4].min]
     end
 
     # wins when >= 2 more score and high score
@@ -88,7 +90,7 @@ class TennisGame2
 
   def setp1Score(number)
     (0..number).each do |i|
-        p1Score()
+      p1Score()
     end
   end
 
