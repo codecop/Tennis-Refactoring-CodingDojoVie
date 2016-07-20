@@ -4,6 +4,7 @@ class TennisGame2
     @player2Name = player2Name
     @p1points = 0
     @p2points = 0
+    # object of player?
   end
       
   def won_point(playerName)
@@ -14,11 +15,24 @@ class TennisGame2
     end
   end
 
+  # returns natural language result
   def score
+    # this is sequentially checking scores and returning values
+    # what might be a better way?
+    # It feels like switching states, which are not visible,
+    #   and then mapping these states to the natural language
+    #   output.
+    #
+    # Love/Fiveteen/.../Fourty is inner level of mapping.
+    #   for the scores the "inner loop"
+    # The outer states are All, Advantage, Win, etc. determined
+    #   by difference/comparing.
+    #
     result = ""
+    # equal and low score 
     if (@p1points == @p2points and @p1points < 3)
       if (@p1points==0)
-        result = "Love"
+          result = "Love"
       end
       if (@p1points==1)
         result = "Fifteen"
@@ -28,12 +42,14 @@ class TennisGame2
       end
       result += "-All"
     end
+    # equal and high score
     if (@p1points==@p2points and @p1points>2)
         result = "Deuce"
     end
     
     p1res = ""
     p2res = ""
+    # player 1 has sth, player 2 has nothing
     if (@p1points > 0 and @p2points==0)
       if (@p1points==1)
         p1res = "Fifteen"
@@ -47,6 +63,7 @@ class TennisGame2
       p2res = "Love"
       result = p1res + "-" + p2res
     end
+    # player 2 is leading (the reverse) duplicated
     if (@p2points > 0 and @p1points==0)
       if (@p2points==1)
         p2res = "Fifteen"
@@ -62,6 +79,7 @@ class TennisGame2
       result = p1res + "-" + p2res
     end
     
+    # duplicated blocks, player 1 leading but with low score
     if (@p1points>@p2points and @p1points < 4)
       if (@p1points==2)
         p1res="Thirty"
@@ -92,12 +110,16 @@ class TennisGame2
       end
       result = p1res + "-" + p2res
     end
+
+    # one is leading with hi score
     if (@p1points > @p2points and @p2points >= 3)
       result = "Advantage " + @player1Name
     end
     if (@p2points > @p1points and @p1points >= 3)
       result = "Advantage " + @player2Name
     end
+
+    # wins when >= 2 more score and high score
     if (@p1points>=4 and @p2points>=0 and (@p1points-@p2points)>=2)
       result = "Win for " + @player1Name
     end
