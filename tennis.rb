@@ -28,18 +28,12 @@ class TennisGame2
     # The outer states are All, Advantage, Win, etc. determined
     #   by difference/comparing.
     #
+    names1 = [ "Love", "Fifteen", "Thirty", "Forty", "Advantage #{@player1Name}" ]
+    names2 = [ "Love", "Fifteen", "Thirty", "Forty", "Advantage #{@player2Name}" ]
     result = ""
     # equal and low score 
     if (@p1points == @p2points and @p1points < 3)
-      if (@p1points==0)
-          result = "Love"
-      end
-      if (@p1points==1)
-        result = "Fifteen"
-      end
-      if (@p1points==2)
-        result = "Thirty"
-      end
+      result = names1[@p1points]
       result += "-All"
     end
     # equal and high score
@@ -51,72 +45,35 @@ class TennisGame2
     p2res = ""
     # player 1 has sth, player 2 has nothing
     if (@p1points > 0 and @p2points==0)
-      if (@p1points==1)
-        p1res = "Fifteen"
-      end
-      if (@p1points==2)
-        p1res = "Thirty"
-      end
-      if (@p1points==3)
-        p1res = "Forty"
-      end
-      p2res = "Love"
+      p2res = names2[@p2points]
+      p1res = names1[@p1points]
       result = p1res + "-" + p2res
     end
     # player 2 is leading (the reverse) duplicated
     if (@p2points > 0 and @p1points==0)
-      if (@p2points==1)
-        p2res = "Fifteen"
-      end
-      if (@p2points==2)
-        p2res = "Thirty"
-      end
-      if (@p2points==3)
-        p2res = "Forty"
-      end
-      
-      p1res = "Love"
+      p2res = names2[@p2points]
+      p1res = names1[@p1points]
       result = p1res + "-" + p2res
     end
     
     # duplicated blocks, player 1 leading but with low score
     if (@p1points>@p2points and @p1points < 4)
-      if (@p1points==2)
-        p1res="Thirty"
-      end
-      if (@p1points==3)
-        p1res="Forty"
-      end
-      if (@p2points==1)
-        p2res="Fifteen"
-      end
-      if (@p2points==2)
-        p2res="Thirty"
-      end
+      p1res = names1[@p1points]
+      p2res = names2[@p2points]
       result = p1res + "-" + p2res
     end
     if (@p2points>@p1points and @p2points < 4)
-      if (@p2points==2)
-        p2res="Thirty"
-      end
-      if (@p2points==3)
-        p2res="Forty"
-      end
-      if (@p1points==1)
-        p1res="Fifteen"
-      end
-      if (@p1points==2)
-        p1res="Thirty"
-      end
+      p1res = names1[@p1points]
+      p2res = names2[@p2points]
       result = p1res + "-" + p2res
     end
 
     # one is leading with hi score
     if (@p1points > @p2points and @p2points >= 3)
-      result = "Advantage " + @player1Name
+      result = names1[@p1points] 
     end
     if (@p2points > @p1points and @p1points >= 3)
-      result = "Advantage " + @player2Name
+      result = names2[@p2points]
     end
 
     # wins when >= 2 more score and high score
