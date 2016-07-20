@@ -35,12 +35,11 @@ class TennisGame2
     result = ""
     # equal and low score
     if (@p1points == @p2points and @p1points < 3)
-      result = names1[@p1points]
-      result += "-All"
+      return names1[@p1points] + "-All"
     end
     # equal and high score
     if (@p1points==@p2points and @p1points>2)
-      result = "Deuce"
+      return "Deuce"
     end
 
     p1res = ""
